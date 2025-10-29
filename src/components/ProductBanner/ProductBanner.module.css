@@ -1,0 +1,114 @@
+/* This component uses variables from your global CSS file */
+
+.bannerContainer {
+  background-color: var(--background-dark, #121212);
+  color: var(--text-primary, #ffffff);
+  padding: 4rem 0;
+  width: 100%;
+}
+
+.bannerTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--spacing-medium, 1.5rem);
+  padding: 0 var(--page-padding, 2rem) 1.5rem; /* Add padding for start/end and scrollbar space */
+  /* This makes scrolling smooth on touch devices */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  /* --- AESTHETIC: Hide the scrollbar --- */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+/* For Chrome, Safari, and Opera */
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.productCard {
+  /* This is key: prevents cards from shrinking and sets their base size */
+  flex: 0 0 320px;
+  scroll-snap-align: start; /* Snaps card to the start of the viewport */
+
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-background, #1e1e1e);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.productImageWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  background-color: var(--image-bg, #2a2a2a);
+}
+
+.productInfo {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allows the link to be pushed to the bottom */
+}
+
+.productCategory {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary, #a0a0a0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.5rem;
+}
+
+.productName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.productTagline {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #a0a0a0);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1; /* Pushes the link down */
+}
+
+.learnMoreLink {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-accent-color, #0070f3);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.learnMoreLink:hover {
+  color: var(--primary-accent-hover, #3391ff);
+  gap: 0.75rem;
+}
+
+.learnMoreLink span {
+  transition: transform 0.2s ease;
+}
+
+.learnMoreLink:hover span {
+  transform: translateX(3px);
+}

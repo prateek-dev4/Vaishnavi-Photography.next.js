@@ -1,164 +1,138 @@
-// Filename: app/components/Header.tsx
+'use client';
 
-"use client";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import styles from './Header.module.css';
 
-import { useState, useEffect, useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import clsx from "clsx";
-import styles from "./Header.module.css";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Services", href: "/#our-services" },
-  { name: "Contact", href: "/#contact" },
-];
-
-export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 10);
-  };
-
+  // Handle mounting
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    setIsMounted(true);
+    return () => setIsMounted(false);
   }, []);
 
+  // Handle scroll - changed threshold to 50px
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  }, [pathname]);
+    if (!isMounted) return;
 
-  const toggleMenu = () => {
-    setIsOpen((prev) => !prev);
-  };
+    // Set initial scroll state
+    setIsScrolled(window.scrollY > 25);
 
-  const menuVariants = {
-    hidden: { opacity: 0, transform: 'translateY(-20px)' },
-    visible: {
-      opacity: 1,
-      transform: 'translateY(0)',
-      transition: { staggerChildren: 0.03, ease: "easeOut", duration: 0.2 },
-    },
-    exit: { 
-      opacity: 0, 
-      transform: 'translateY(-20px)', 
-      transition: { ease: "easeIn", duration: 0.15 } 
-    },
-  };
+    // Throttled scroll handler
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 25);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
 
-  const linkVariants = {
-    hidden: { opacity: 0, transform: 'translateY(-10px)' },
-    visible: { 
-      opacity: 1, 
-      transform: 'translateY(0)',
-      transition: { duration: 0.15 }
-    },
-  };
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Cleanup
+    return () => {
+      if (isMounted) {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [isMounted]);
+
+  const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '#about' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Contact', href: '/#contact' },
+  ];
 
   return (
     <>
-      <nav className={clsx(styles.navbar, isScrolled && styles.scrolled)}>
-        <div
-          className={clsx(
-            styles.navContainer,
-            isScrolled && styles.navContainerScrolled
-          )}
-        >
-          <div className={styles.navContent}>
-            <Link href="/" className={styles.logoLink}>
-              <Image
-                src="/logo.svg"
-                alt="Vaishnavi Photography"
-                width={100}
-                height={40}
-                priority
-              />
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className={styles.desktopNav}>
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={clsx(styles.navLink, isActive && styles.active)}
-                    prefetch={true}
-                  >
-                    {link.name}
-                    {isActive && (
-                      <motion.span
-                        layoutId="underline"
-                        className={styles.activeUnderline}
-                        initial={false}
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </Link>
-                );
-              })}
+      {/* Fixed Navbar - Hidden initially, appears on scroll */}
+      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+        <div className={styles.navbarContainer}>
+          {/* Logo */}
+          <Link href="/" className={styles.logo}>
+            <div className={styles.logoWrapper}>
+            <img src="/logo.svg" alt="Logo" width={125} height={50} />
             </div>
+          </Link>
 
-            {/* Mobile Menu Button */}
-            <div className={styles.mobileMenuButton}>
-              <button
-                onClick={toggleMenu}
-                type="button"
-                className={styles.menuToggle}
+          {/* Desktop Navigation - Only shows on desktop */}
+          <nav className={styles.nav}>
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`${styles.navLink} ${
+                  pathname === item.href ? styles.active : ''
+                }`}
               >
-                {/* <span className="sr-only">Open main menu</span> */}
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
+                <span className={styles.navText}>{item.name}</span>
+                <div className={styles.navHoverEffect}></div>
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA Button - Only shows on desktop */}
+          <div className={styles.ctaSection}>
+            <button className={styles.ctaButton}>
+              <span className={styles.ctaText}>Let's Talk</span>
+              <div className={styles.ctaGlow}></div>
+            </button>
+          </div>
+
+          {/* Mobile Menu Button - Only shows on mobile */}
+          <button
+            className={`${styles.mobileMenuButton} ${
+              isMobileMenuOpen ? styles.menuOpen : ''
+            }`}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={styles.menuBar}></span>
+            <span className={styles.menuBar}></span>
+            <span className={styles.menuBar}></span>
+          </button>
+        </div>
+
+        {/* Mobile Navigation Overlay - Only shows on mobile when menu is open */}
+        <div className={`${styles.mobileNav} ${isMobileMenuOpen ? styles.mobileNavOpen : ''}`}>
+          <div className={styles.mobileNavContent}>
+            {navItems.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`${styles.mobileNavLink} ${
+                  pathname === item.href ? styles.mobileActive : ''
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <button className={styles.mobileCtaButton}>
+              Get Started
+            </button>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className={styles.mobileMenu}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={menuVariants}
-          >
-            <div className={styles.mobileNavLinks}>
-              {navLinks.map((link) => (
-                <motion.div key={link.name} variants={linkVariants}>
-                  <Link
-                    href={link.href}
-                    className={clsx(
-                      styles.mobileNavLink,
-                      pathname === link.href && styles.mobileActive
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Glassmorphism Background Layer */}
+        <div className={styles.glassLayer}></div>
+      </header>
+
+      {/* Spacer - Only needed when navbar is visible */}
+      <div className={`${styles.headerSpacer} ${isScrolled ? styles.spacerVisible : ''}`}></div>
     </>
   );
-}
+};
 
 export default Header;

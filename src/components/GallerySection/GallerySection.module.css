@@ -34,12 +34,16 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
   cursor: pointer;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .imageCard:hover {
-  transform: scale(1.02);
+  transform: scale(1.02) translateZ(0);
   box-shadow: 0 0 25px var(--hover-color);
 }
 
@@ -47,11 +51,14 @@
   width: 100%;
   height: auto;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .imageCard:hover .image {
-  transform: scale(1.08);
+  transform: scale(1.08) translateZ(0);
 }
 
 .imageOverlay {

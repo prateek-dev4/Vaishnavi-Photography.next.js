@@ -7,56 +7,61 @@ export const metadata = {
   description: "Gallery Page of Vaishnavi Photography"
 }
 
-const Gallery = () => {
+// Enable static page generation
+export const dynamic = 'force-static'
+export const revalidate = 3600 // Revalidate every hour
+
+export default function Gallery() {
+  // Pre-defined sections for static generation
   const sections = [
     {
       id: 'wedding',
       title: 'Wedding Photography',
       images: [
         { src: '/assets/RiyaKratish/image1.webp', width: 800, height: 1200 },
-        { src: '/assets/wedding/image2.jpg', width: 800, height: 1200 },
-        { src: '/assets/wedding/image3.jpg', width: 1200, height: 800 },
-        { src: '/assets/wedding/image4.jpg', width: 800, height: 1200 },
-        { src: '/assets/wedding/image5.jpg', width: 1200, height: 800 },
-        { src: '/assets/wedding/image6.jpg', width: 800, height: 1200 },
-        { src: '/assets/wedding/image7.jpg', width: 1200, height: 800 },
-        { src: '/assets/wedding/image8.jpg', width: 800, height: 1200 },
+        { src: '/assets/wedding/image2.webp', width: 800, height: 1200 },
+        { src: '/assets/wedding/image3.webp', width: 1200, height: 800 },
+        { src: '/assets/wedding/image4.webp', width: 800, height: 1200 },
+        { src: '/assets/wedding/image5.webp', width: 1200, height: 800 },
+        { src: '/assets/wedding/image6.webp', width: 800, height: 1200 },
+        { src: '/assets/wedding/image7.webp', width: 1200, height: 800 },
+        { src: '/assets/wedding/image8.webp', width: 800, height: 1200 },
       ]
     },
     {
       id: 'event',
       title: 'Event Photography',
       images: [
-        { src: '/assets/event/image1.jpg', width: 1200, height: 800 },
-        { src: '/assets/event/image2.jpg', width: 800, height: 1200 },
-        { src: '/assets/event/image3.jpg', width: 1200, height: 800 },
-        { src: '/assets/event/image4.jpg', width: 800, height: 1200 },
-        { src: '/assets/event/image5.jpg', width: 1200, height: 800 },
-        { src: '/assets/event/image6.jpg', width: 800, height: 1200 },
+        { src: '/assets/event/image1.webp', width: 1200, height: 800 },
+        { src: '/assets/event/image2.webp', width: 800, height: 1200 },
+        { src: '/assets/event/image3.webp', width: 1200, height: 800 },
+        { src: '/assets/event/image4.webp', width: 800, height: 1200 },
+        { src: '/assets/event/image5.webp', width: 1200, height: 800 },
+        { src: '/assets/event/image6.webp', width: 800, height: 1200 },
       ]
     },
     {
       id: 'pre-wedding',
       title: 'Pre Wedding Photography',
       images: [
-        { src: '/assets/pre-wedding/image1.jpg', width: 800, height: 1200 },
-        { src: '/assets/pre-wedding/image2.jpg', width: 1200, height: 800 },
-        { src: '/assets/pre-wedding/image3.jpg', width: 800, height: 1200 },
-        { src: '/assets/pre-wedding/image4.jpg', width: 1200, height: 800 },
-        { src: '/assets/pre-wedding/image5.jpg', width: 800, height: 1200 },
-        { src: '/assets/pre-wedding/image6.jpg', width: 1200, height: 800 },
-        { src: '/assets/pre-wedding/image7.jpg', width: 800, height: 1200 },
+        { src: '/assets/pre-wedding/image1.webp', width: 800, height: 1200 },
+        { src: '/assets/pre-wedding/image2.webp', width: 1200, height: 800 },
+        { src: '/assets/pre-wedding/image3.webp', width: 800, height: 1200 },
+        { src: '/assets/pre-wedding/image4.webp', width: 1200, height: 800 },
+        { src: '/assets/pre-wedding/image5.webp', width: 800, height: 1200 },
+        { src: '/assets/pre-wedding/image6.webp', width: 1200, height: 800 },
+        { src: '/assets/pre-wedding/image7.webp', width: 800, height: 1200 },
       ]
     },
     {
       id: 'portrait',
       title: 'Portrait Photography',
       images: [
-        { src: '/assets/portrait/image1.jpg', width: 800, height: 1200 },
-        { src: '/assets/portrait/image2.jpg', width: 1200, height: 800 },
-        { src: '/assets/portrait/image3.jpg', width: 800, height: 1200 },
-        { src: '/assets/portrait/image4.jpg', width: 1200, height: 800 },
-        { src: '/assets/portrait/image5.jpg', width: 800, height: 1200 },
+        { src: '/assets/portrait/image1.webp', width: 800, height: 1200 },
+        { src: '/assets/portrait/image2.webp', width: 1200, height: 800 },
+        { src: '/assets/portrait/image3.webp', width: 800, height: 1200 },
+        { src: '/assets/portrait/image4.webp', width: 1200, height: 800 },
+        { src: '/assets/portrait/image5.webp', width: 800, height: 1200 },
       ]
     }
   ];
@@ -75,5 +80,3 @@ const Gallery = () => {
     </div>
   );
 };
-
-export default Gallery;

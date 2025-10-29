@@ -31,7 +31,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${raleway.variable} ${playfair.variable} ${poppins.variable}`}>
-      <body>{children}</body>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#000000" />
+      </head>
+      <body suppressHydrationWarning={true}>
+        <div id="root" className="app-root">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

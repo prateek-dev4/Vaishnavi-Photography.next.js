@@ -1,0 +1,527 @@
+/* components/About.module.css */
+.about {
+  position: relative;
+  min-height: 100vh;
+  background: var(--primary-bg);
+  overflow: hidden;
+  padding: 4rem 0;
+}
+
+/* Triangle SVGs */
+
+
+/* Photography-themed Background Elements */
+.backgroundElements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.lensFlare {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--shape-purple) 0%, transparent 70%);
+  opacity: 0.05;
+  top: -100px;
+  right: -100px;
+  filter: blur(40px);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.apertureShape {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: conic-gradient(from 0deg, transparent, var(--shape-blue), transparent);
+  opacity: 0.03;
+  bottom: -50px;
+  left: -50px;
+  border-radius: 50%;
+  filter: blur(30px);
+  animation: rotate 20s linear infinite;
+}
+
+.filmStrip {
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 20px,
+    var(--border-light) 20px,
+    var(--border-light) 25px
+  );
+  opacity: 0.02;
+  right: 10%;
+  top: 0;
+  animation: filmMove 15s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.03; transform: scale(1); }
+  50% { opacity: 0.06; transform: scale(1.1); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes filmMove {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.title {
+  font-family: var(--font-playfair);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.titleMain {
+  display: block;
+  color: var(--primary-text);
+}
+
+.titleGradient {
+  display: block;
+  background: var(--gradient-highlight);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cameraIcon {
+  font-size: 3rem;
+  opacity: 0.8;
+  margin-top: 1rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+/* Text Content */
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.introSection {
+  border-left: 4px solid;
+  border-image: var(--gradient-primary) 1;
+  padding-left: 1.5rem;
+}
+
+.greeting {
+  font-family: var(--font-raleway);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  margin-bottom: 0.5rem;
+}
+
+.nameHighlight {
+  background: var(--gradient-highlight);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-family: var(--font-poppins);
+  font-size: 1.2rem;
+  color: var(--secondary-text);
+  line-height: 1.6;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.storyText {
+  font-family: var(--font-poppins);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--secondary-text);
+}
+
+/* Photography Styles */
+.stylesSection {
+  margin-top: 1rem;
+}
+
+.stylesTitle {
+  font-family: var(--font-raleway);
+  font-size: 1.5rem;
+  color: var(--primary-text);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.stylesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.styleCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.styleCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-focus);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+.styleIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.styleName {
+  font-family: var(--font-poppins);
+  color: var(--primary-text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Visual Section */
+.visual {
+  position: sticky;
+  top: 2rem;
+}
+
+.profileCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.cardFrame {
+  padding: 2rem;
+}
+
+.profileImage {
+  margin-bottom: 2rem;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 250px;
+  background: var(--gradient-secondary);
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cameraLens {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--black-color);
+  border: 8px solid var(--white-color);
+  position: relative;
+}
+
+.cameraLens::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--shape-blue);
+}
+
+.shutterEffect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 30%, rgba(255,255,255,0.1) 70%);
+  animation: shutter 4s ease-in-out infinite;
+}
+
+@keyframes shutter {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.cardStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.statItem {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+}
+
+.statNumber {
+  font-family: var(--font-raleway);
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient-highlight);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-family: var(--font-poppins);
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+}
+
+/* Philosophy Section */
+.philosophy {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.quote {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.quoteIcon {
+  font-size: 4rem;
+  color: var(--shape-purple);
+  opacity: 0.3;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+}
+
+.quoteText {
+  font-family: var(--font-playfair);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--primary-text);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.quoteAuthor {
+  font-family: var(--font-raleway);
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+
+/* CTA Section */
+.ctaSection {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ctaButton {
+  position: relative;
+  background: var(--gradient-cta);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  color: var(--white-color);
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--button-shadow);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--button-shadow-hover);
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 2px solid var(--border-focus);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  color: var(--primary-text);
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.buttonGlow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.ctaButton:hover .buttonGlow {
+  left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .visual {
+    order: -1;
+    position: static;
+  }
+  
+  .profileCard {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .greeting {
+    font-size: 1.8rem;
+  }
+  
+  .stylesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cardStats {
+    grid-template-columns: 1fr;
+  }
+  
+  .ctaSection {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ctaButton, .secondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .triangleSvgTop,
+  .triangleSvgBottom {
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .stylesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .triangleSvgTop,
+  .triangleSvgBottom {
+    height: 40px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .lensFlare,
+  .apertureShape,
+  .filmStrip,
+  .cameraIcon,
+  .shutterEffect,
+  .buttonGlow {
+    animation: none;
+  }
+  
+  .styleCard:hover,
+  .ctaButton:hover,
+  .secondaryButton:hover {
+    transform: none;
+  }
+}

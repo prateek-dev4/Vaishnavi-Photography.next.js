@@ -1,0 +1,97 @@
+.invitationContainer {
+  width: 100%;
+  background-color: var(--primary-bg);
+  padding: 5rem 2rem;
+  color: var(--primary-text);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 3rem;
+  /* Using your gradient for the title */
+  background: var(--gradient-highlight);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.invitationCard {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.invitationCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-focus); /* Use focus border on hover */
+}
+
+.imageWrapper {
+  width: 100%;
+  aspect-ratio: 9 / 16; /* Good aspect ratio for a showcase */
+  position: relative;
+  background-color: var(--black-color); /* Fallback bg while image loads */
+}
+
+.contentWrapper {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ensures content fills space and link is at bottom */
+}
+
+.invitationName {
+  font-family: var(--font-poppins);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--primary-text);
+}
+
+.invitationDescription {
+  font-family: var(--font-raleway);
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  line-height: 1.6;
+  flex-grow: 1; /* Pushes the link down */
+}
+
+.invitationLink {
+  margin-top: 1.5rem;
+  font-family: var(--font-poppins);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--shape-purple); /* Using your accent color */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.invitationLink:hover {
+  color: var(--hover-color); /* Using your hover color */
+  gap: 0.75rem;
+}
+
+.invitationLink span {
+  transition: transform 0.2s ease;
+}
+
+.invitationLink:hover span {
+  transform: translateX(3px);
+}
