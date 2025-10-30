@@ -44,66 +44,18 @@ const mySlideshowVideos = [
   '/videos/cityscape-1.mp4',
 ];
 
-const myInvitations = [
-  {
-    imageUrl: '/images/invitations/haldi-card.jpg', // You must provide these images
-    name: 'Haldi Ceremony',
-    description: 'Vibrant yellows and floral marigolds. A bright and joyful theme for your Haldi event.',
-    linkUrl: '/invitations/haldi',
-  },
-  {
-    imageUrl: '/images/invitations/sangeet-card.jpg',
-    name: 'Sangeet Night',
-    description: 'Deep blues and sparkling stars. A glamorous and energetic design for a night of dance.',
-    linkUrl: '/invitations/sangeet',
-  },
-  {
-    imageUrl: '/images/invitations/wedding-card.jpg',
-    name: 'Royal Wedding',
-    description: 'Rich reds, golds, and intricate patterns. A traditional and elegant theme for the main event.',
-    linkUrl: '/invitations/wedding',
-  },
-];
-
-const myImages = [
-  {
-    imageUrl: '/images/invitations/haldi-card.jpg',
-    name: 'Haldi Ceremony',
-    description: 'Vibrant yellows and floral marigolds. A bright and joyful theme.',
-    linkUrl: '/invitations/haldi',
-  },
-  {
-    imageUrl: '/images/invitations/sangeet-card.jpg',
-    name: 'Sangeet Night',
-    description: 'Deep blues and sparkling stars. A glamorous design for a night of dance.',
-    linkUrl: '/invitations/sangeet',
-  },
-  {
-    imageUrl: '/images/invitations/wedding-card.jpg',
-    name: 'Royal Wedding',
-    description: 'Rich reds, golds, and intricate patterns. A traditional and elegant theme.',
-    linkUrl: '/invitations/wedding',
-  },
-  {
-    imageUrl: '/images/invitations/reception-card.jpg',
-    name: 'Modern Reception',
-    description: 'Clean pastels and minimalist fonts for a chic and modern reception.',
-    linkUrl: '/invitations/reception',
-  },
-];
 export default function Home() {
   return (
     <div>
       <Header />
-      <VideoSlideshow videos={mySlideshowVideos} />
-      <InvitationGrid invitations={myInvitations} />
-      <Hero />
+      <Hero/>
       <div className="gallery-main-container">
-        <GalleryPreview images={myImages} />
+        <GalleryPreview />
       </div>
       <WhyChooseUs />
       <OurShoots />
-      <VideoTeaser />
+      {/* <VideoTeaser /> */}
+      <VideoSlideshow videos={mySlideshowVideos} />
       <YouTubeGallery />
       <About />
       <OurServices />

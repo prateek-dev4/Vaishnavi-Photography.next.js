@@ -1,98 +1,104 @@
-"use client"; // This component must be a client component
+"use client"
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 import styles from './GalleryPreview.module.css';
 
-/**
- * A responsive slider section to showcase invitation designs.
- *
- * @param {Object} props
- * @param {Object[]} props.invitations - An array of invitation objects.
- */
 const GalleryPreview = () => {
-  const images = [
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const galleryImages = [
     {
-      imageUrl: '/assets/Preview/Preview 1.jpg',
-      name: 'Wedding Photography',
-      description: 'Capturing your special moments with elegance',
-      linkUrl: '/gallery#wedding'
+      id: 1,
+      src: "/assets/Preview/Preview 1.jpg",
+      alt: "Wedding Photography",
+      title: "Wedding Photography",
+      description: "Capturing your special day with elegance and emotion"
     },
     {
-      imageUrl: '/assets/Preview/Preview 2.jpg',
-      name: 'Portrait Sessions',
-      description: 'Professional portraits that tell your story',
-      linkUrl: '/gallery#portrait'
+      id: 2,
+      src: "/assets/Preview/Preview 2.jpg",
+      alt: "Portrait Photography",
+      title: "Portrait Sessions",
+      description: "Beautiful portraits that tell your unique story"
     },
     {
-      imageUrl: '/assets/Preview/Preview 3.jpg',
-      name: 'Event Coverage',
-      description: 'Comprehensive event photography services',
-      linkUrl: '/gallery#event'
+      id: 3,
+      src: "/assets/Preview/Preview 3.jpg",
+      alt: "Nature Photography",
+      title: "Nature & Landscape",
+      description: "Stunning landscapes and natural beauty"
     },
     {
-      imageUrl: '/assets/Preview/Preview 4.jpg',
-      name: 'Commercial Photography',
-      description: 'Professional commercial and product photography',
-      linkUrl: '/gallery#commercial'
+      id: 4,
+      src: "/assets/Preview/Preview 4.jpg",
+      alt: "Event Photography",
+      title: "Event Coverage",
+      description: "Professional coverage for all your special events"
     }
   ];
 
+  // Auto-advance the gallery every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [galleryImages.length]);
+
   return (
-    <section className={styles.sliderContainer}>
-      <h2 className={styles.sectionTitle}>Our Gallery</h2>
-      
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
-        effect="coverflow"
-        centeredSlides={true}
-        slidesPerView="auto"
-        loop={true}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: false,
-        }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        navigation
-        pagination={{ clickable: true }}
-        className={styles.swiperInstance}
-      >
-        {images.map((image, index) => (
-          <SwiperSlide key={index} className={styles.swiperSlide}>
-            <Link href={image.linkUrl} className={styles.imageLink}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={image.imageUrl}
-                  alt={image.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={index < 2}
-                  quality={85}
-                  style={{ 
-                    objectFit: 'cover',
-                    objectPosition: 'center'
-                  }}
-                />
+    <section className={styles.galleryPreview}>
+      <div className={styles.container}>
+        <h2 className={styles.title}>Our Gallery</h2>
+        <p className={styles.subtitle}>Explore our diverse photography portfolio</p>
+        
+        <div className={styles.galleryContainer}>
+          <div className={styles.imageSlider}>
+            {galleryImages.map((image, index) => (
+              <div
+                key={image.id}
+                className={`${styles.slide} ${
+                  index === currentIndex ? styles.active : ''
+                }`}
+              >
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className={styles.image}
+                  />
+                  <div className={styles.overlay}></div>
+                </div>
+                
+                <div className={styles.caption}>
+                  <h3 className={styles.imageTitle}>{image.title}</h3>
+                  <p className={styles.imageDescription}>{image.description}</p>
+                </div>
               </div>
-            </Link>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            ))}
+          </div>
+          
+          <div className={styles.indicators}>
+            {galleryImages.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.indicator} ${
+                  index === currentIndex ? styles.active : ''
+                }`}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`View image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className={styles.ctaContainer}>
+          <a href="/gallery" className={styles.ctaButton}>
+            View Full Gallery
+          </a>
+        </div>
+      </div>
     </section>
   );
 };

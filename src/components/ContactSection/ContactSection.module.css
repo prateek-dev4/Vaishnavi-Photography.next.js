@@ -682,3 +682,68 @@
     padding: 1.25rem 0.75rem 0.5rem;
   }
 }
+
+/* Message post animation */
+.thankYouMessage {
+  position: relative;
+  overflow: visible;
+}
+
+.postAnimation {
+  position: absolute;
+  top: -48px;
+  right: 40px;
+  width: 84px;
+  height: 84px;
+  pointer-events: none;
+}
+
+.postAnimation svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.planeBody {
+  fill: var(--shape-purple);
+  opacity: 0.95;
+  transform-origin: center;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.12));
+  animation: flyUp 900ms cubic-bezier(.22,.9,.31,1) forwards;
+}
+
+.planeWing {
+  fill: var(--shape-blue);
+  opacity: 0.9;
+  transform-origin: center;
+  animation: wingTilt 900ms ease-out forwards;
+}
+
+.trailDot {
+  fill: var(--shape-purple);
+  opacity: 0;
+  animation: trailPulse 900ms ease-out forwards;
+}
+
+@keyframes flyUp {
+  0% { transform: translateY(20px) rotate(-18deg) scale(0.8); opacity: 0; }
+  60% { transform: translateY(-6px) rotate(-6deg) scale(1.02); opacity: 1; }
+  100% { transform: translateY(-36px) rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes wingTilt {
+  0% { transform: rotate(-12deg) translateY(4px); }
+  50% { transform: rotate(6deg) translateY(0); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes trailPulse {
+  0% { opacity: 0; transform: scale(0.2); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
+
+/* small-screen placement tweak */
+@media (max-width: 480px) {
+  .postAnimation { right: 18px; top: -40px; width: 64px; height: 64px; }
+}

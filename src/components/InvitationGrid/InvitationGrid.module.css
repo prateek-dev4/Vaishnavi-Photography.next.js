@@ -17,11 +17,19 @@
   color: transparent;
 }
 
-.grid {
+.gridThree {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gridFour {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -42,9 +50,38 @@
 
 .imageWrapper {
   width: 100%;
-  aspect-ratio: 9 / 16; /* Good aspect ratio for a showcase */
+  aspect-ratio: 9 / 12; /* Good aspect ratio for a showcase */
   position: relative;
   background-color: var(--black-color); /* Fallback bg while image loads */
+}
+
+@media (max-width: 1400px) {
+  .gridFour {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gridThree {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 900px) {
+  .gridFour {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gridThree,
+  .gridFour {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
 }
 
 .contentWrapper {

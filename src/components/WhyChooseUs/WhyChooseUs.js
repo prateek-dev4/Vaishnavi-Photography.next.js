@@ -1,6 +1,6 @@
 "use client"
 // components/WhyChooseUs/WhyChooseUs.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Camera, 
   Award, 
@@ -9,11 +9,57 @@ import {
   Users,
   Sparkles
 } from 'lucide-react';
+import { useInView } from 'motion/react';
 import styles from './WhyChooseUs.module.css';
+
+// Simple CountUp component (lightweight fallback)
+function CountUp({ end = 0, duration = 1500, decimals = 0, shouldAnimate = false, className, style }) {
+  const [value, setValue] = useState(0);
+  const rafRef = useRef();
+
+  useEffect(() => {
+    if (!shouldAnimate) {
+      setValue(0);
+      return;
+    }
+
+    let start = null;
+    const startVal = 0;
+    const diff = end - startVal;
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const current = startVal + diff * progress;
+      setValue(Number(current.toFixed(decimals)));
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(step);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [end, duration, decimals, shouldAnimate]);
+
+  return (
+    <div className={className || styles.simpleCounter} style={style}>
+      {value}
+    </div>
+  );
+}
 
 const WhyChooseUs = () => {
   const [activeFeature, setActiveFeature] = useState(0);
-  
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const statsRef = useRef(null);
+  const isInView = useInView(statsRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (isInView) {
+      setShouldAnimate(true);
+    }
+  }, [isInView]);
+
   const features = [
     {
       icon: <Camera size={32} />,
@@ -105,21 +151,26 @@ const WhyChooseUs = () => {
           </div>
         </div>
 
-        <div className={styles.statsContainer}>
+        <div className={styles.statsContainer} ref={statsRef}>
           <div className={styles.statItem}>
-            <h3 className={styles.statNumber}>500+</h3>
+            <CountUp end={500} duration={1600} decimals={0} shouldAnimate={shouldAnimate} style={{ fontSize: '42px', fontWeight: 700 }} />
             <p className={styles.statLabel}>Happy Clients</p>
           </div>
           <div className={styles.statItem}>
-            <h3 className={styles.statNumber}>10+</h3>
+            <CountUp end={14} duration={1200} decimals={0} shouldAnimate={shouldAnimate} style={{ fontSize: '42px', fontWeight: 700 }} />
             <p className={styles.statLabel}>Years Experience</p>
           </div>
           <div className={styles.statItem}>
-            <h3 className={styles.statNumber}>92%</h3>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <CountUp end={92} duration={1400} decimals={0} shouldAnimate={shouldAnimate} style={{ fontSize: '42px', fontWeight: 700 }} />
+              <span className={styles.percent}>%</span>
+            </div>
             <p className={styles.statLabel}>Satisfaction Rate</p>
           </div>
           <div className={styles.statItem}>
-            <h3 className={styles.statNumber}>8.7</h3>
+            <div className={styles.ratingCounter}>
+              <CountUp end={9.1} duration={1400} decimals={1} shouldAnimate={shouldAnimate} style={{ fontSize: '32px', fontWeight: 700 }} />
+            </div>
             <p className={styles.statLabel}>Average Rating</p>
           </div>
         </div>
